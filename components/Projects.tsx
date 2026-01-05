@@ -193,6 +193,18 @@ export const Projects: React.FC = () => {
   const projects = getProjects(language);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedProject]);
+
   const handleProjectClick = (project: Project) => {
     if (project.link) {
       setSelectedProject(project);
