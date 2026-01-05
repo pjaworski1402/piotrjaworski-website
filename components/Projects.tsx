@@ -87,8 +87,8 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
   };
 
   const windowClasses = isMobileSize
-    ? "relative w-[375px] h-[calc(100vh-10rem)] bg-[#1e1e1e]/90 backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden"
-    : "relative w-full max-w-[1400px] h-[calc(100vh-6rem)] bg-[#1e1e1e]/90 backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden";
+    ? "relative w-[375px] h-[calc(100vh-12rem)] bg-[#1e1e1e]/90 backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden"
+    : "relative w-full max-w-[1400px] h-[calc(100vh-12rem)] bg-[#1e1e1e]/90 backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden";
 
   return (
     <motion.div
