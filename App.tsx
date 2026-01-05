@@ -8,6 +8,7 @@ import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Experience } from './components/Experience';
 import { Contact } from './components/Contact';
+import { NotFound } from './components/NotFound';
 
 const getLanguageFromQuery = (search: string): 'en' | 'pl' => {
   const params = new URLSearchParams(search);
@@ -48,10 +49,12 @@ const PortfolioContent: React.FC = () => {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LanguageRedirect />} />
-        <Route path="*" element={<LanguageRedirect />} />
-      </Routes>
+      <LanguageProvider>
+        <Routes>
+          <Route path="/" element={<LanguageRedirect />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </LanguageProvider>
     </BrowserRouter>
   );
 }
@@ -61,14 +64,6 @@ const LanguageRedirect: React.FC = () => {
   const location = useLocation();
   
   useEffect(() => {
-    if (location.pathname !== '/') {
-      const lang = getLanguageFromQuery(location.search);
-      const params = new URLSearchParams();
-      params.set('lang', lang);
-      navigate(`/?${params.toString()}`, { replace: true });
-      return;
-    }
-    
     const currentLang = getLanguageFromQuery(location.search);
     if (!location.search.includes('lang=')) {
       const params = new URLSearchParams();
@@ -77,11 +72,7 @@ const LanguageRedirect: React.FC = () => {
     }
   }, [navigate, location]);
   
-  return (
-    <LanguageProvider>
-      <PortfolioContent />
-    </LanguageProvider>
-  );
+  return <PortfolioContent />;
 };
 
 export default App;

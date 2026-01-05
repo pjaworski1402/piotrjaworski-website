@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { HashLink } from 'react-router-hash-link';
 import { getNavLinks } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
 import { Menu, X, Globe, Code2 } from 'lucide-react';
@@ -21,17 +22,9 @@ export const Navbar: React.FC = () => {
     setLanguage(language === 'pl' ? 'en' : 'pl');
   };
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
-    } else if (href === '#') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setIsOpen(false);
-    }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsOpen(false);
   };
 
   return (
@@ -44,9 +37,9 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a 
-            href="#" 
-            onClick={(e) => scrollToSection(e, '#')}
+          <HashLink 
+            to="/#"
+            onClick={scrollToTop}
             className="group flex items-center gap-2 cursor-pointer z-50"
           >
             <div className="w-8 h-8 rounded bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white group-hover:border-emerald-500/50 group-hover:bg-neutral-800 transition-all">
@@ -55,20 +48,21 @@ export const Navbar: React.FC = () => {
             <span className="text-lg font-bold tracking-tight text-white group-hover:text-neutral-200 transition-colors">
               PJ<span className="text-emerald-500">.com</span>
             </span>
-          </a>
+          </HashLink>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {links.map((link) => (
-              <a
+              <HashLink
                 key={link.name}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
+                to={link.href}
+                smooth
+                onClick={() => setIsOpen(false)}
                 className="text-sm font-medium text-neutral-400 hover:text-white transition-colors cursor-pointer relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-emerald-500 transition-all duration-300 group-hover:w-full" />
-              </a>
+              </HashLink>
             ))}
             
             <div className="h-4 w-px bg-neutral-800 mx-2" />
@@ -113,18 +107,22 @@ export const Navbar: React.FC = () => {
           >
             <div className="flex flex-col gap-6">
               {links.map((link, idx) => (
-                <motion.a
+                <motion.div
                   key={link.name}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + idx * 0.1 }}
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-2xl font-bold text-neutral-300 hover:text-white hover:pl-4 transition-all"
                 >
-                  <span className="text-emerald-500 text-base font-mono mr-4">0{idx + 1}.</span>
-                  {link.name}
-                </motion.a>
+                  <HashLink
+                    to={link.href}
+                    smooth
+                    onClick={() => setIsOpen(false)}
+                    className="text-2xl font-bold text-neutral-300 hover:text-white hover:pl-4 transition-all block"
+                  >
+                    <span className="text-emerald-500 text-base font-mono mr-4">0{idx + 1}.</span>
+                    {link.name}
+                  </HashLink>
+                </motion.div>
               ))}
               
               <motion.div 
