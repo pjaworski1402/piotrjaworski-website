@@ -11,7 +11,7 @@ export const NotFound: React.FC = () => {
   const { t, language } = useLanguage();
 
   const goHome = () => {
-    navigate(`/${language}`);
+    navigate(`/?lang=${language}`);
   };
 
   return (

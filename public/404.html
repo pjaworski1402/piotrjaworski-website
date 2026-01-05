@@ -5,27 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
     <script>
-      var path = window.location.pathname;
       var search = window.location.search;
       var hash = window.location.hash;
       
-      if (path.endsWith('/404.html')) {
-        path = path.replace('/404.html', '');
-      }
+      var params = new URLSearchParams(search);
+      var lang = params.get('lang');
       
-      var pathParts = path.split('/').filter(function(p) { return p; });
-      var firstPart = pathParts[0];
-      
-      if (firstPart === 'pl' || firstPart === 'en') {
-        sessionStorage.setItem('redirectPath', path + search + hash);
-      } else {
+      if (lang !== 'pl' && lang !== 'en') {
         var browserLang = navigator.language.toLowerCase();
-        var defaultLang = browserLang.startsWith('pl') ? 'pl' : 'en';
-        var newPath = '/' + defaultLang + (path && path !== '/' ? path : '');
-        sessionStorage.setItem('redirectPath', newPath + search + hash);
+        lang = browserLang.startsWith('pl') ? 'pl' : 'en';
       }
       
-      window.location.replace('/index.html');
+      var redirectUrl = '/index.html?lang=' + lang + hash;
+      window.location.replace(redirectUrl);
     </script>
   </head>
   <body>

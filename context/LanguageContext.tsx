@@ -64,10 +64,12 @@ export const translations = {
   }
 };
 
-const getLanguageFromPath = (pathname: string): Language => {
-  const pathLang = pathname.split('/')[1];
-  if (pathLang === 'en' || pathLang === 'pl') {
-    return pathLang as Language;
+const getLanguageFromQuery = (search: string): Language => {
+  const params = new URLSearchParams(search);
+  const langParam = params.get('lang');
+  
+  if (langParam === 'pl' || langParam === 'en') {
+    return langParam as Language;
   }
   
   const browserLang = navigator.language.toLowerCase();
@@ -81,20 +83,20 @@ const getLanguageFromPath = (pathname: string): Language => {
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [language, setLanguageState] = useState<Language>(() => getLanguageFromPath(location.pathname));
+  const [language, setLanguageState] = useState<Language>(() => getLanguageFromQuery(location.search));
 
   useEffect(() => {
-    const currentLang = getLanguageFromPath(location.pathname);
+    const currentLang = getLanguageFromQuery(location.search);
     if (currentLang !== language) {
       setLanguageState(currentLang);
     }
-  }, [location.pathname]);
+  }, [location.search, language]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    const currentPath = location.pathname;
-    const pathWithoutLang = currentPath.replace(/^\/(en|pl)/, '') || '/';
-    navigate(`/${lang}${pathWithoutLang}`);
+    const params = new URLSearchParams(location.search);
+    params.set('lang', lang);
+    navigate(`${location.pathname}?${params.toString()}`, { replace: true });
   };
 
   const t = (key: string) => {
