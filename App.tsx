@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { Background } from './components/Background';
@@ -8,6 +8,7 @@ import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Experience } from './components/Experience';
 import { Contact } from './components/Contact';
+import { NotFound } from './components/NotFound';
 
 const getLanguageFromPath = (pathname: string): 'en' | 'pl' => {
   const pathLang = pathname.split('/')[1];
@@ -43,7 +44,48 @@ const PortfolioContent: React.FC = () => {
   );
 };
 
-const RedirectHandler: React.FC = () => {
+const LanguageRoute: React.FC = () => {
+  const { lang } = useParams<{ lang: string }>();
+  const location = useLocation();
+  
+  if (lang !== 'pl' && lang !== 'en') {
+    return (
+      <LanguageProvider>
+        <NotFound />
+      </LanguageProvider>
+    );
+  }
+  
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  
+  if (pathSegments.length > 1) {
+    return (
+      <LanguageProvider>
+        <NotFound />
+      </LanguageProvider>
+    );
+  }
+  
+  return (
+    <LanguageProvider>
+      <PortfolioContent />
+    </LanguageProvider>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LanguageRedirect />} />
+        <Route path="/:lang" element={<LanguageRoute />} />
+        <Route path="/:lang/*" element={<LanguageRoute />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+const LanguageRedirect: React.FC = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -51,33 +93,14 @@ const RedirectHandler: React.FC = () => {
     if (redirectPath) {
       sessionStorage.removeItem('redirectPath');
       navigate(redirectPath, { replace: true });
+      return;
     }
+    
+    const lang = getLanguageFromPath(window.location.pathname);
+    navigate(`/${lang}`, { replace: true });
   }, [navigate]);
   
   return null;
 };
-
-function App() {
-  return (
-    <BrowserRouter>
-      <RedirectHandler />
-      <Routes>
-        <Route path="/" element={
-          <Navigate to={`/${getLanguageFromPath(window.location.pathname)}`} replace />
-        } />
-        <Route path="/:lang" element={
-          <LanguageProvider>
-            <PortfolioContent />
-          </LanguageProvider>
-        } />
-        <Route path="/:lang/*" element={
-          <LanguageProvider>
-            <PortfolioContent />
-          </LanguageProvider>
-        } />
-      </Routes>
-    </BrowserRouter>
-  );
-}
 
 export default App;

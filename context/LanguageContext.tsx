@@ -32,6 +32,10 @@ export const translations = {
     'contact.title': "Let's Build Something Great",
     'contact.desc': "I'm currently available for freelance projects and full-time opportunities. Specializing in React, Next.js, and high-performance SaaS architecture.",
     'contact.footer': 'Based in Poland.',
+    '404.title': 'Page Not Found',
+    '404.message': 'It looks like the page you\'re looking for doesn\'t exist or has been moved.',
+    '404.home': 'Back to Home',
+    '404.back': 'Go Back',
   },
   pl: {
     'nav.about': 'O mnie',
@@ -53,6 +57,10 @@ export const translations = {
     'contact.title': 'Stwórzmy coś wyjątkowego',
     'contact.desc': 'Jestem dostępny do projektów freelance oraz stałej współpracy. Specjalizuję się w React, Next.js i wydajnej architekturze SaaS.',
     'contact.footer': 'Polska.',
+    '404.title': 'Strona nie znaleziona',
+    '404.message': 'Wygląda na to, że strona, której szukasz, nie istnieje lub została przeniesiona.',
+    '404.home': 'Powrót do strony głównej',
+    '404.back': 'Wstecz',
   }
 };
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Piotr Jaworski | Full-Stack Developer</title>
+    <title>Redirecting...</title>
     <script>
       var path = window.location.pathname;
       var search = window.location.search;
@@ -13,11 +13,19 @@
         path = path.replace('/404.html', '');
       }
       
-      if (path && path !== '/') {
+      var pathParts = path.split('/').filter(function(p) { return p; });
+      var firstPart = pathParts[0];
+      
+      if (firstPart === 'pl' || firstPart === 'en') {
         sessionStorage.setItem('redirectPath', path + search + hash);
+      } else {
+        var browserLang = navigator.language.toLowerCase();
+        var defaultLang = browserLang.startsWith('pl') ? 'pl' : 'en';
+        var newPath = '/' + defaultLang + (path && path !== '/' ? path : '');
+        sessionStorage.setItem('redirectPath', newPath + search + hash);
       }
       
-      window.location.replace('/' + search + hash);
+      window.location.replace('/index.html');
     </script>
   </head>
   <body>
