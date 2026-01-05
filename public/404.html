@@ -5,37 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Piotr Jaworski | Full-Stack Developer</title>
     <script>
-      (function() {
-        var path = window.location.pathname;
-        var search = window.location.search;
-        var hash = window.location.hash;
-        
-        if (path.endsWith('/404.html')) {
-          path = path.replace('/404.html', '');
-        }
-        
-        fetch('/index.html')
-          .then(function(response) { return response.text(); })
-          .then(function(html) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
-            
-            document.open();
-            document.write(html);
-            document.close();
-            
-            if (path !== '/' && path !== '') {
-              window.history.replaceState({}, '', path + search + hash);
-            }
-          })
-          .catch(function() {
-            window.location.replace('/');
-          });
-      })();
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      
+      if (path.endsWith('/404.html')) {
+        path = path.replace('/404.html', '');
+      }
+      
+      if (path && path !== '/') {
+        sessionStorage.setItem('redirectPath', path + search + hash);
+      }
+      
+      window.location.replace('/' + search + hash);
     </script>
   </head>
   <body>
-    <div>Loading...</div>
+    <div>Redirecting...</div>
   </body>
 </html>
 

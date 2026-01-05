@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { Background } from './components/Background';
@@ -43,9 +43,24 @@ const PortfolioContent: React.FC = () => {
   );
 };
 
+const RedirectHandler: React.FC = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const redirectPath = sessionStorage.getItem('redirectPath');
+    if (redirectPath) {
+      sessionStorage.removeItem('redirectPath');
+      navigate(redirectPath, { replace: true });
+    }
+  }, [navigate]);
+  
+  return null;
+};
+
 function App() {
   return (
     <BrowserRouter>
+      <RedirectHandler />
       <Routes>
         <Route path="/" element={
           <Navigate to={`/${getLanguageFromPath(window.location.pathname)}`} replace />
