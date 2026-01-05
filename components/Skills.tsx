@@ -2,10 +2,38 @@ import React from 'react';
 import { getSkills } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
 import { motion } from 'framer-motion';
+import { Tooltip } from './ui/Tooltip';
 
 export const Skills: React.FC = () => {
   const { t, language } = useLanguage();
   const skills = getSkills(language);
+
+  const getTooltipKey = (skill: string): string => {
+    const skillMap: Record<string, string> = {
+      'OpenAI API': 'skills.tooltip.openai',
+      'Google Gemini': 'skills.tooltip.gemini',
+      'Custom AI Agents': 'skills.tooltip.customAgents',
+      'RAG': 'skills.tooltip.rag',
+      'Prompt Engineering': 'skills.tooltip.promptEngineering',
+      'n8n': 'skills.tooltip.n8n',
+      'Webhooks': 'skills.tooltip.webhooks',
+      'React': 'skills.tooltip.react',
+      'Next.js 14+': 'skills.tooltip.nextjs',
+      'TypeScript': 'skills.tooltip.typescript',
+      'Tailwind CSS': 'skills.tooltip.tailwind',
+      'Framer Motion': 'skills.tooltip.framerMotion',
+      'Figma': 'skills.tooltip.figma',
+      'Node.js': 'skills.tooltip.nodejs',
+      'PostgreSQL': 'skills.tooltip.postgresql',
+      'PayloadCMS': 'skills.tooltip.payload',
+      'Strapi': 'skills.tooltip.strapi',
+      'Stripe Integration': 'skills.tooltip.stripe',
+      'Serverless Functions': 'skills.tooltip.serverless',
+      'Vercel': 'skills.tooltip.vercel',
+      'Git & GitHub': 'skills.tooltip.git',
+    };
+    return skillMap[skill] || '';
+  };
 
   const container = {
     hidden: { opacity: 0 },
@@ -50,16 +78,22 @@ export const Skills: React.FC = () => {
                 viewport={{ once: true, margin: "-50px" }}
                 className="flex flex-wrap gap-2"
               >
-                {group.skills.map(skill => (
-                  <motion.span 
-                    key={skill}
-                    variants={item}
-                    whileHover={{ scale: 1.05, backgroundColor: "rgba(31, 41, 55, 1)", borderColor: "rgba(75, 85, 99, 1)" }}
-                    className="px-3 py-2 bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm rounded transition-colors cursor-default select-none hover:text-white"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
+                {group.skills.map(skill => {
+                  const tooltipKey = getTooltipKey(skill);
+                  const tooltipContent = tooltipKey ? t(tooltipKey) : '';
+                  
+                  return (
+                    <Tooltip key={skill} content={tooltipContent}>
+                      <motion.span 
+                        variants={item}
+                        whileHover={{ scale: 1.05, backgroundColor: "rgba(31, 41, 55, 1)", borderColor: "rgba(75, 85, 99, 1)" }}
+                        className="px-3 py-2 bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm rounded transition-colors cursor-pointer select-none hover:text-white"
+                      >
+                        {skill}
+                      </motion.span>
+                    </Tooltip>
+                  );
+                })}
               </motion.div>
             </div>
           ))}
