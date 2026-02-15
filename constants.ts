@@ -122,7 +122,7 @@ export const getExperience = (lang: Language): Experience[] => {
   return [
     {
       id: 'bluevendo',
-      role: isPl ? 'Full-Stack Developer' : 'Full-Stack Developer',
+      role: isPl ? 'Frontend developer' : 'Frontend developer',
       company: 'Bluevendo',
       period: isPl ? '2022 - Obecnie' : '2022 - Present',
       description: isPl
