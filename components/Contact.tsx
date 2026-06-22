@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { Github, Linkedin, Mail, Send, Loader2 } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Send, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 
@@ -64,9 +64,17 @@ export const Contact: React.FC = () => {
             <p className="text-white font-bold mb-4">
               {t('contact.vat')}
             </p>
-            <p className="text-emerald-400/90 text-sm mb-12 leading-relaxed">
+            <p className="text-emerald-400/90 text-sm mb-8 leading-relaxed">
               {t('contact.audit')}
             </p>
+
+            <a
+              href="tel:+48608423576"
+              className="inline-flex items-center gap-3 text-white font-medium mb-8 hover:text-emerald-400 transition-colors"
+            >
+              <Phone size={20} className="text-emerald-500" />
+              +48 608 423 576
+            </a>
 
             <div className="flex gap-6">
               <a 
@@ -75,6 +83,13 @@ export const Contact: React.FC = () => {
                 aria-label="Email"
               >
                 <Mail size={24} className="group-hover:text-emerald-400 transition-colors" />
+              </a>
+              <a 
+                href="tel:+48608423576"
+                className="group p-4 bg-neutral-900 border border-neutral-800 text-white rounded-full hover:border-emerald-500/50 transition-all hover:scale-110"
+                aria-label="Phone"
+              >
+                <Phone size={24} className="group-hover:text-emerald-400 transition-colors" />
               </a>
               <a 
                 href="https://github.com/pjaworski1402" 
