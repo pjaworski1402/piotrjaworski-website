@@ -240,7 +240,7 @@ export const Projects: React.FC = () => {
                       {project.title}
                     </h3>
                     {project.link && (
-                      <ArrowUpRight className="text-neutral-600 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" size={16} />
+                      <ArrowUpRight className="text-neutral-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" size={16} />
                     )}
                   </div>
                   
@@ -252,13 +252,13 @@ export const Projects: React.FC = () => {
                     <ul className="text-sm text-neutral-400 space-y-2">
                       {project.features.slice(0, 3).map((feat, i) => (
                         <li key={i} className="flex items-start gap-2">
-                          <CheckCircle2 className="text-emerald-500/70 shrink-0 mt-0.5" size={14} />
+                          <CheckCircle2 className="text-emerald-400 shrink-0 mt-0.5" size={14} />
                           {feat}
                         </li>
                       ))}
                     </ul>
                     {project.link && (
-                      <p className="text-xs text-emerald-500/80 mt-4 font-medium">
+                      <p className="text-xs text-emerald-400 mt-4 font-medium">
                         {t('projects.preview')}
                       </p>
                     )}

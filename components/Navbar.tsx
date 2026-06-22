@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { getNavLinks } from '../constants';
+import { getNavLinks, SITE_CONFIG } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
 import { Menu, X, Globe, Code2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -151,8 +151,8 @@ export const Navbar: React.FC = () => {
                  transition={{ delay: 0.5 }}
                  className="mt-8 pt-8 border-t border-neutral-800"
               >
-                <p className="text-neutral-500 text-sm mb-4">Contact</p>
-                <a href="mailto:hello@piotrjaworski.com" className="text-white text-lg font-medium">hello@piotrjaworski.com</a>
+                <p className="text-neutral-400 text-sm mb-4">{t('nav.contact')}</p>
+                <a href={`mailto:${SITE_CONFIG.email}`} className="text-white text-lg font-medium">{SITE_CONFIG.email}</a>
               </motion.div>
             </div>
           </motion.div>

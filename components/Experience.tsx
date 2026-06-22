@@ -24,8 +24,8 @@ export const Experience: React.FC = () => {
             >
               <div className="md:grid md:grid-cols-4 gap-6">
                 <div className="md:col-span-1 mb-2 md:mb-0">
-                   <span className="text-sm font-mono text-neutral-500 block">{job.period}</span>
-                   <span className="text-xs text-neutral-600 uppercase tracking-widest mt-1 block">{job.company}</span>
+                   <span className="text-sm font-mono text-neutral-400 block">{job.period}</span>
+                   <span className="text-xs text-neutral-500 uppercase tracking-widest mt-1 block">{job.company}</span>
                 </div>
                 
                 <div className="md:col-span-3 relative">
@@ -45,11 +45,6 @@ export const Experience: React.FC = () => {
               </div>
             </motion.div>
           ))}
-        </div>
-
-        <div className="mt-16 border-t border-neutral-900/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 text-sm">
-          <p>© {new Date().getFullYear()} Piotr Jaworski.</p>
-          <p>{t('contact.footer')}</p>
         </div>
       </div>
     </section>

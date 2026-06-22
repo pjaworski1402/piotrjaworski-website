@@ -39,8 +39,8 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
   };
 
   return (
-    <span 
-      className="relative inline-flex"
+    <span
+      className="relative inline-flex overflow-visible"
       onMouseEnter={() => !isMobile && setIsVisible(true)}
       onMouseLeave={() => !isMobile && setIsVisible(false)}
       onClick={handleInteraction}
@@ -54,11 +54,11 @@ export const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-neutral-800 border border-neutral-700 text-neutral-200 text-xs rounded shadow-lg max-w-[280px] sm:max-w-xs"
+            className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-[min(320px,calc(100vw-2rem))] min-w-[260px] px-4 py-3 bg-neutral-800 border border-neutral-700 text-neutral-200 text-sm leading-relaxed rounded-lg shadow-lg"
             style={{ pointerEvents: isMobile ? 'auto' : 'none' }}
           >
-            <div className="whitespace-normal break-words text-center">{content}</div>
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800" />
+            <div className="whitespace-normal text-left">{content}</div>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-800" />
           </motion.div>
         )}
       </AnimatePresence>

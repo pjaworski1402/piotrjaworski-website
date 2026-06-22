@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://piotrjaworski.dev/sitemap.xml
-
+Sitemap: https://piotrjaworski.com/sitemap.xml

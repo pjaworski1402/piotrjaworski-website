@@ -1,16 +1,27 @@
 import React, { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { usePrivacyModal } from '../context/PrivacyModalContext';
+import { SITE_CONFIG } from '../constants';
 import { Github, Linkedin, Mail, Phone, Send, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 
 export const Contact: React.FC = () => {
   const { t, language } = useLanguage();
+  const { openPrivacyModal } = usePrivacyModal();
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!privacyAccepted) {
+      setPrivacyError(true);
+      return;
+    }
+
+    setPrivacyError(false);
     setFormState('loading');
 
     if (!formRef.current) {
@@ -29,6 +40,7 @@ export const Contact: React.FC = () => {
     }
 
     try {
+      const emailjs = await import('@emailjs/browser');
       await emailjs.sendForm(
         serviceId,
         templateId,
@@ -37,6 +49,7 @@ export const Contact: React.FC = () => {
       );
       setFormState('success');
       formRef.current.reset();
+      setPrivacyAccepted(false);
       setTimeout(() => setFormState('idle'), 3000);
     } catch (error) {
       console.error('EmailJS error:', error);
@@ -44,15 +57,14 @@ export const Contact: React.FC = () => {
       setTimeout(() => setFormState('idle'), 3000);
     }
   };
-  
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden scroll-mt-20 bg-[#050505] border-t border-neutral-900">
-      
+
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-900/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-2 gap-16 lg:gap-24 mb-20">
-          
+        <div className="grid md:grid-cols-2 gap-16 lg:gap-24">
           <div className="flex flex-col justify-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
               {t('contact.title')}
@@ -64,35 +76,35 @@ export const Contact: React.FC = () => {
             <p className="text-white font-bold mb-4">
               {t('contact.vat')}
             </p>
-            <p className="text-emerald-400/90 text-sm mb-8 leading-relaxed">
+            <p className="text-emerald-300 text-sm mb-8 leading-relaxed">
               {t('contact.audit')}
             </p>
 
             <a
-              href="tel:+48608423576"
+              href={SITE_CONFIG.phoneHref}
               className="inline-flex items-center gap-3 text-white font-medium mb-8 hover:text-emerald-400 transition-colors"
             >
               <Phone size={20} className="text-emerald-500" />
-              +48 608 423 576
+              {SITE_CONFIG.phone}
             </a>
 
             <div className="flex gap-6">
-              <a 
-                href="mailto:hello@piotrjaworski.com" 
+              <a
+                href={`mailto:${SITE_CONFIG.email}`}
                 className="group p-4 bg-neutral-900 border border-neutral-800 text-white rounded-full hover:border-emerald-500/50 transition-all hover:scale-110"
                 aria-label="Email"
               >
                 <Mail size={24} className="group-hover:text-emerald-400 transition-colors" />
               </a>
-              <a 
-                href="tel:+48608423576"
+              <a
+                href={SITE_CONFIG.phoneHref}
                 className="group p-4 bg-neutral-900 border border-neutral-800 text-white rounded-full hover:border-emerald-500/50 transition-all hover:scale-110"
                 aria-label="Phone"
               >
                 <Phone size={24} className="group-hover:text-emerald-400 transition-colors" />
               </a>
-              <a 
-                href="https://github.com/pjaworski1402" 
+              <a
+                href="https://github.com/pjaworski1402"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-4 bg-neutral-900 border border-neutral-800 text-white rounded-full hover:border-white/50 transition-all hover:scale-110"
@@ -100,8 +112,8 @@ export const Contact: React.FC = () => {
               >
                 <Github size={24} />
               </a>
-              <a 
-                href="https://linkedin.com/in/piotr-jaworski00/" 
+              <a
+                href="https://linkedin.com/in/piotr-jaworski00/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-4 bg-neutral-900 border border-neutral-800 text-white rounded-full hover:border-[#0077b5] transition-all hover:scale-110"
@@ -112,7 +124,7 @@ export const Contact: React.FC = () => {
             </div>
           </div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -121,11 +133,11 @@ export const Contact: React.FC = () => {
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <label htmlFor="name" className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
                     {language === 'pl' ? 'Imię' : 'Name'}
                   </label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     id="name"
                     name="from_name"
                     required
@@ -134,11 +146,11 @@ export const Contact: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <label htmlFor="email" className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
                     Email
                   </label>
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     id="email"
                     name="from_email"
                     required
@@ -149,10 +161,23 @@ export const Contact: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="subject" className="text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                <label htmlFor="phone" className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
+                  {t('contact.phoneLabel')}
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
+                  placeholder={t('contact.phonePlaceholder')}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="subject" className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
                   {language === 'pl' ? 'Temat' : 'Subject'}
                 </label>
-                <select 
+                <select
                   id="subject"
                   name="subject"
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all appearance-none"
@@ -164,17 +189,48 @@ export const Contact: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                <label htmlFor="message" className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
                   {language === 'pl' ? 'Wiadomość' : 'Message'}
                 </label>
-                <textarea 
+                <textarea
                   id="message"
                   name="message"
                   required
                   rows={4}
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all resize-none"
                   placeholder={t('contact.messagePlaceholder')}
-                ></textarea>
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={privacyAccepted}
+                    onChange={(e) => {
+                      setPrivacyAccepted(e.target.checked);
+                      if (e.target.checked) setPrivacyError(false);
+                    }}
+                    className="mt-1 rounded border-neutral-700 bg-neutral-950 text-emerald-500 focus:ring-emerald-500"
+                  />
+                  <span className="text-neutral-400 text-xs leading-relaxed">
+                    {t('contact.privacyConsent')}{' '}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        openPrivacyModal();
+                      }}
+                      className="text-emerald-400 hover:text-emerald-300 underline"
+                    >
+                      {t('contact.privacyLink')}
+                    </button>
+                  </span>
+                </label>
+                {privacyError && (
+                  <p className="text-red-400 text-xs">{t('contact.privacyRequired')}</p>
+                )}
               </div>
 
               {formState === 'error' && (
@@ -183,7 +239,7 @@ export const Contact: React.FC = () => {
                 </div>
               )}
 
-              <button 
+              <button
                 type="submit"
                 disabled={formState !== 'idle'}
                 className="w-full bg-white text-black font-medium py-3 rounded-lg hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2"

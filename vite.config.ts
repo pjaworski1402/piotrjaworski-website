@@ -17,19 +17,34 @@ const copy404Plugin = () => {
   };
 };
 
-export default defineConfig(({ }) => {
-    return {
-      base: process.env.BASE_URL || '/',
-      server: {
-        port: 3000,
-        host: '0.0.0.0',
-      },
-      plugins: [react(), copy404Plugin()],
-      envPrefix: 'VITE_',
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '.'),
-        }
+export default defineConfig(() => {
+  return {
+    base: process.env.BASE_URL || '/',
+    server: {
+      port: 3000,
+      host: '0.0.0.0',
+    },
+    plugins: [react(), copy404Plugin()],
+    envPrefix: 'VITE_',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, '.'),
       }
-    };
+    },
+    build: {
+      target: 'es2020',
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+
+            if (id.includes('framer-motion')) return 'motion';
+            if (id.includes('@emailjs')) return 'emailjs';
+            if (id.includes('react-router')) return 'router';
+            if (id.includes('react-dom') || id.includes('/react/')) return 'react';
+          },
+        },
+      },
+    },
+  };
 });
