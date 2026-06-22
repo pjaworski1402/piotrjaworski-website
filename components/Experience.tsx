@@ -25,7 +25,7 @@ export const Experience: React.FC = () => {
               <div className="md:grid md:grid-cols-4 gap-6">
                 <div className="md:col-span-1 mb-2 md:mb-0">
                    <span className="text-sm font-mono text-neutral-400 block">{job.period}</span>
-                   <span className="text-xs text-neutral-500 uppercase tracking-widest mt-1 block">{job.company}</span>
+                   <span className="text-xs text-neutral-400 uppercase tracking-widest mt-1 block">{job.company}</span>
                 </div>
                 
                 <div className="md:col-span-3 relative">

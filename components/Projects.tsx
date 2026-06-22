@@ -145,7 +145,7 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
                 <div className="absolute inset-0 flex items-center justify-center bg-neutral-100 z-10">
                   <div className="flex flex-col items-center gap-3">
                     <Loader2 className="animate-spin text-neutral-400" size={32} />
-                    <span className="text-xs text-neutral-500 font-medium tracking-wide uppercase">
+                    <span className="text-xs text-neutral-400 font-medium tracking-wide uppercase">
                       {t('projects.preview')}...
                     </span>
                   </div>
@@ -161,7 +161,7 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
               />
             </>
           ) : (
-            <div className="flex items-center justify-center h-full bg-[#111] text-neutral-500 flex-col gap-4 px-6 text-center">
+            <div className="flex items-center justify-center h-full bg-[#111] text-neutral-400 flex-col gap-4 px-6 text-center">
               <Globe size={48} className="opacity-20" />
               <p>{project.description}</p>
             </div>
@@ -240,7 +240,7 @@ export const Projects: React.FC = () => {
                       {project.title}
                     </h3>
                     {project.link && (
-                      <ArrowUpRight className="text-neutral-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" size={16} />
+                      <ArrowUpRight className="text-neutral-400 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" size={16} />
                     )}
                   </div>
                   

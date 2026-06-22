@@ -89,7 +89,7 @@ export const Hero: React.FC = () => {
             {t('hero.bio')}
           </p>
 
-          <p className="text-neutral-500 text-sm mb-8 flex items-center gap-2">
+          <p className="text-neutral-400 text-sm mb-8 flex items-center gap-2">
             <MapPin size={14} className="text-emerald-500 shrink-0" />
             {t('hero.location')}
           </p>

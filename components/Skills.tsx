@@ -34,14 +34,14 @@ export const Skills: React.FC = () => {
         >
           {t('skills.title')}
         </motion.h2>
-        <p className="text-neutral-500 text-sm mb-10 max-w-2xl">
+        <p className="text-neutral-400 text-sm mb-10 max-w-2xl">
           {t('skills.subtitle')}
         </p>
 
         <div className="grid md:grid-cols-3 gap-10">
           {skills.map((group) => (
             <div key={group.category} className="space-y-4">
-              <h3 className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 flex items-center gap-2">
+              <h3 className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium mb-3 flex items-center gap-2">
                 <span className="w-6 h-px bg-neutral-800" />
                 {group.category}
               </h3>

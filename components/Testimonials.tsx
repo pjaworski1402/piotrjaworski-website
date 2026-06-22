@@ -35,7 +35,7 @@ export const Testimonials: React.FC = () => {
               <p className="text-neutral-300 text-sm leading-relaxed mb-6 flex-1">&ldquo;{item.quote}&rdquo;</p>
               <footer className="border-t border-neutral-800/80 pt-4">
                 <p className="text-white text-sm font-medium">{item.role}</p>
-                <p className="text-neutral-500 text-xs mt-1">{item.project}</p>
+                <p className="text-neutral-400 text-xs mt-1">{item.project}</p>
               </footer>
             </motion.blockquote>
           ))}
