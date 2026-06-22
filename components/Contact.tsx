@@ -48,19 +48,24 @@ export const Contact: React.FC = () => {
   return (
     <section id="contact" className="py-24 relative overflow-hidden scroll-mt-20 bg-[#050505] border-t border-neutral-900">
       
-      {/* Refined gradient */}
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-900/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-16 lg:gap-24 mb-20">
           
-          {/* Left Column: Info */}
           <div className="flex flex-col justify-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
               {t('contact.title')}
             </h2>
-            <p className="text-neutral-400 mb-12 text-lg leading-relaxed">
+            <p className="text-neutral-400 mb-6 text-lg leading-relaxed">
               {t('contact.desc')}
+            </p>
+
+            <p className="text-white font-bold mb-4">
+              {t('contact.vat')}
+            </p>
+            <p className="text-emerald-400/90 text-sm mb-12 leading-relaxed">
+              {t('contact.audit')}
             </p>
 
             <div className="flex gap-6">
@@ -92,7 +97,6 @@ export const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Form */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -111,7 +115,7 @@ export const Contact: React.FC = () => {
                     name="from_name"
                     required
                     className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
-                    placeholder="John Doe"
+                    placeholder="Jan Kowalski"
                   />
                 </div>
                 <div className="space-y-2">
@@ -124,7 +128,7 @@ export const Contact: React.FC = () => {
                     name="from_email"
                     required
                     className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
-                    placeholder="john@example.com"
+                    placeholder="jan@example.com"
                   />
                 </div>
               </div>
@@ -138,9 +142,9 @@ export const Contact: React.FC = () => {
                   name="subject"
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all appearance-none"
                 >
-                  <option>{language === 'pl' ? 'Współpraca (Freelance)' : 'Freelance Project'}</option>
-                  <option>{language === 'pl' ? 'Oferta Pracy' : 'Job Opportunity'}</option>
-                  <option>{language === 'pl' ? 'Inne' : 'Other'}</option>
+                  <option>{t('contact.subject.newSite')}</option>
+                  <option>{t('contact.subject.audit')}</option>
+                  <option>{t('contact.subject.other')}</option>
                 </select>
               </div>
 
@@ -154,7 +158,7 @@ export const Contact: React.FC = () => {
                   required
                   rows={4}
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all resize-none"
-                  placeholder={language === 'pl' ? 'Opisz swój projekt...' : 'Tell me about your project...'}
+                  placeholder={t('contact.messagePlaceholder')}
                 ></textarea>
               </div>
 
@@ -186,12 +190,6 @@ export const Contact: React.FC = () => {
               </button>
             </form>
           </motion.div>
-        </div>
-
-        {/* Footer Text - Moved outside the grid to sit at bottom on mobile */}
-        <div className="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 text-sm">
-          <p>© {new Date().getFullYear()} Piotr Jaworski.</p>
-          <p>{t('contact.footer')}</p>
         </div>
       </div>
     </section>

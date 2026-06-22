@@ -46,6 +46,11 @@ export const Experience: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        <div className="mt-16 border-t border-neutral-900/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 text-sm">
+          <p>© {new Date().getFullYear()} Piotr Jaworski.</p>
+          <p>{t('contact.footer')}</p>
+        </div>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { getProjects } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
 import { Badge } from './ui/Badge';
-import { Layers, ArrowUpRight, X, Loader2, Lock, RotateCw } from 'lucide-react';
+import { Globe, ArrowUpRight, X, Loader2, Lock, RotateCw, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '../types';
 
@@ -26,21 +26,10 @@ const SpotlightCard = ({ children, className = "", onClick }: SpotlightCardProps
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
-  const handleFocus = () => {
-    setOpacity(1);
-  };
-
-  const handleBlur = () => {
-    setOpacity(0);
-  };
-
-  const handleMouseEnter = () => {
-    setOpacity(1);
-  };
-
-  const handleMouseLeave = () => {
-    setOpacity(0);
-  };
+  const handleFocus = () => setOpacity(1);
+  const handleBlur = () => setOpacity(0);
+  const handleMouseEnter = () => setOpacity(1);
+  const handleMouseLeave = () => setOpacity(0);
 
   return (
     <div
@@ -66,6 +55,7 @@ const SpotlightCard = ({ children, className = "", onClick }: SpotlightCardProps
 };
 
 const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => void }) => {
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
   const [key, setKey] = useState(0);
   const [isMobileSize, setIsMobileSize] = useState(false);
@@ -97,13 +87,11 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8"
     >
-      {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
         onClick={onClose}
       />
 
-      {/* MacOS Window */}
       <motion.div
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -111,10 +99,7 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
         className={windowClasses}
       >
-        {/* Window Header / Toolbar */}
         <div className="h-12 bg-[#252525] border-b border-black/50 flex items-center px-4 justify-between shrink-0">
-          
-          {/* Traffic Lights */}
           <div className="flex gap-2 w-20 group">
             <button 
               onClick={onClose}
@@ -126,7 +111,6 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
             <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
           </div>
 
-          {/* Address Bar */}
           <div className="flex-1 max-w-2xl mx-4">
             <div className="bg-[#1a1a1a] border border-white/5 rounded-md h-7 flex items-center px-3 text-xs text-neutral-400 font-mono gap-2 shadow-inner">
               <Lock size={10} className="text-emerald-500" />
@@ -139,7 +123,6 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
             </div>
           </div>
 
-          {/* Actions */}
           <div className="w-20 flex justify-end">
             {project.link && (
               <a 
@@ -147,7 +130,7 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-neutral-400 hover:text-white transition-colors"
-                title="Open in new tab"
+                title={t('projects.visit')}
               >
                 <ArrowUpRight size={18} />
               </a>
@@ -155,7 +138,6 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
           </div>
         </div>
 
-        {/* Window Body / Iframe */}
         <div className="flex-1 relative bg-white w-full">
           {project.link ? (
             <>
@@ -163,7 +145,9 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
                 <div className="absolute inset-0 flex items-center justify-center bg-neutral-100 z-10">
                   <div className="flex flex-col items-center gap-3">
                     <Loader2 className="animate-spin text-neutral-400" size={32} />
-                    <span className="text-xs text-neutral-500 font-medium tracking-wide uppercase">Loading Preview...</span>
+                    <span className="text-xs text-neutral-500 font-medium tracking-wide uppercase">
+                      {t('projects.preview')}...
+                    </span>
                   </div>
                 </div>
               )}
@@ -177,9 +161,9 @@ const ProjectWindow = ({ project, onClose }: { project: Project; onClose: () => 
               />
             </>
           ) : (
-            <div className="flex items-center justify-center h-full bg-[#111] text-neutral-500 flex-col gap-4">
-              <Layers size={48} className="opacity-20" />
-              <p>Preview not available for this project type.</p>
+            <div className="flex items-center justify-center h-full bg-[#111] text-neutral-500 flex-col gap-4 px-6 text-center">
+              <Globe size={48} className="opacity-20" />
+              <p>{project.description}</p>
             </div>
           )}
         </div>
@@ -212,7 +196,7 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-32 scroll-mt-20">
+    <section id="projects" className="py-24 border-t border-neutral-900 scroll-mt-20">
       <AnimatePresence>
         {selectedProject && (
           <ProjectWindow 
@@ -223,13 +207,11 @@ export const Projects: React.FC = () => {
       </AnimatePresence>
 
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
-          <div>
-            <h2 className="text-4xl font-bold text-white mb-4">{t('projects.title')}</h2>
-            <p className="text-neutral-400 max-w-xl">
-              {t('projects.subtitle')}
-            </p>
-          </div>
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('projects.title')}</h2>
+          <p className="text-neutral-400 max-w-2xl leading-relaxed">
+            {t('projects.subtitle')}
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -246,20 +228,13 @@ export const Projects: React.FC = () => {
                 onClick={() => handleProjectClick(project)}
               >
                 <div className="p-6 flex flex-col h-full">
-                  {/* Header */}
-                  <div className="flex justify-between items-start mb-6">
+                  <div className="flex justify-between items-start mb-5">
                     <div className="p-2.5 bg-neutral-900 rounded-lg text-neutral-400 group-hover:text-emerald-400 group-hover:bg-emerald-950/30 transition-all duration-300">
-                      <Layers size={20} />
+                      <Globe size={20} />
                     </div>
-                    <div className="flex gap-2">
-                      {project.isMonetized && (
-                        <Badge variant="success">$ Rev</Badge>
-                      )}
-                      <Badge>{project.category}</Badge>
-                    </div>
+                    <Badge>{project.category}</Badge>
                   </div>
 
-                  {/* Content */}
                   <div className="flex items-center gap-2 mb-2">
                     <h3 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
                       {project.title}
@@ -269,32 +244,24 @@ export const Projects: React.FC = () => {
                     )}
                   </div>
                   
-                  <p className="text-neutral-400 text-sm mb-6 flex-grow leading-relaxed">
+                  <p className="text-neutral-400 text-sm mb-5 flex-grow leading-relaxed">
                     {project.description}
                   </p>
 
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.techStack.slice(0, 3).map(tech => (
-                      <span key={tech} className="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-[10px] uppercase font-bold tracking-wider text-neutral-500">
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 3 && (
-                      <span className="px-2 py-1 text-[10px] text-neutral-600 font-mono">+{project.techStack.length - 3}</span>
-                    )}
-                  </div>
-
-                  {/* Footer / Features */}
                   <div className="pt-4 border-t border-neutral-900 mt-auto">
-                    <ul className="text-xs text-neutral-500 space-y-1 mb-4">
-                      {project.features.slice(0, 2).map((feat, i) => (
-                        <li key={i} className="flex items-start gap-1.5">
-                           <span className="w-1 h-1 rounded-full bg-neutral-600 mt-1.5" />
-                           {feat}
+                    <ul className="text-sm text-neutral-400 space-y-2">
+                      {project.features.slice(0, 3).map((feat, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <CheckCircle2 className="text-emerald-500/70 shrink-0 mt-0.5" size={14} />
+                          {feat}
                         </li>
                       ))}
                     </ul>
+                    {project.link && (
+                      <p className="text-xs text-emerald-500/80 mt-4 font-medium">
+                        {t('projects.preview')}
+                      </p>
+                    )}
                   </div>
                 </div>
               </SpotlightCard>

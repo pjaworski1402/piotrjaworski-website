@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { getNavLinks } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
@@ -8,9 +9,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
 
   const links = getNavLinks(t);
+
+  const getHashLink = (hash: string) => ({
+    pathname: '/',
+    search: location.search,
+    hash,
+  });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -50,7 +58,7 @@ export const Navbar: React.FC = () => {
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <HashLink 
-            to="/#"
+            to={getHashLink('#')}
             onClick={scrollToTop}
             className="group flex items-center gap-2 cursor-pointer z-50"
           >
@@ -67,7 +75,7 @@ export const Navbar: React.FC = () => {
             {links.map((link) => (
               <HashLink
                 key={link.name}
-                to={link.href}
+                to={getHashLink(link.href)}
                 smooth
                 onClick={() => setIsOpen(false)}
                 className="text-sm font-medium text-neutral-400 hover:text-white transition-colors cursor-pointer relative group"
@@ -126,7 +134,7 @@ export const Navbar: React.FC = () => {
                   transition={{ delay: 0.1 + idx * 0.1 }}
                 >
                   <HashLink
-                    to={link.href}
+                    to={getHashLink(link.href)}
                     smooth
                     onClick={() => setIsOpen(false)}
                     className="text-2xl font-bold text-neutral-300 hover:text-white hover:pl-4 transition-all block"

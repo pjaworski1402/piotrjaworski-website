@@ -36,18 +36,20 @@ export const Hero: React.FC = () => {
   const { t, language } = useLanguage();
   const reasons = getWhyHire(language);
 
-  const roles = language === 'pl' 
-    ? ['Twórca Stron Internetowych', 'Specjalista Strapi CMS', 'Dostępny na Useme'] 
-    : ['Website Creator', 'Strapi CMS Specialist', 'Available on Useme'];
+  const benefits = [
+    t('hero.benefit1'),
+    t('hero.benefit2'),
+    t('hero.benefit3'),
+  ];
     
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [currentBenefitIndex, setCurrentBenefitIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 4000); // Change role every 4s
+      setCurrentBenefitIndex((prev) => (prev + 1) % benefits.length);
+    }, 4000);
     return () => clearInterval(interval);
-  }, [roles.length]);
+  }, [benefits.length]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -57,11 +59,10 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="about" className="min-h-screen flex items-center pt-20 relative scroll-mt-20">
+    <section id="about" className="min-h-[90vh] flex items-center pt-20 relative scroll-mt-20">
       
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
         
-        {/* Left Content */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,43 +73,42 @@ export const Hero: React.FC = () => {
             {t('hero.available')}
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6">
-            Piotr <br />
-            <span className="text-white">
-              Jaworski
-            </span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
+            {t('hero.headline')}
           </h1>
           
-          <h2 className="text-xl md:text-2xl text-neutral-400 mb-8 font-light h-8 flex items-center">
-            <TypewriterText text={roles[currentRoleIndex]} />
+          <h2 className="text-lg md:text-xl text-emerald-400/90 mb-4 font-medium h-8 flex items-center">
+            <TypewriterText text={benefits[currentBenefitIndex]} />
           </h2>
           
-          <p className="text-neutral-400 leading-relaxed mb-8 max-w-md">
+          <p className="text-neutral-400 leading-relaxed mb-4 max-w-lg">
             {t('hero.desc')}
           </p>
 
+          <p className="text-neutral-500 text-sm mb-8">
+            {t('hero.author')}
+          </p>
+
           <div className="flex flex-wrap gap-4">
-            {/* Shimmer Button */}
             <button 
-              onClick={() => scrollToSection('projects')}
+              onClick={() => scrollToSection('contact')}
               className="relative inline-flex h-12 overflow-hidden rounded-md p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
             >
               <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2E8F0_0%,#393BB2_50%,#E2E8F0_100%)]" />
               <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-md bg-neutral-950 px-6 py-1 text-sm font-medium text-white backdrop-blur-3xl gap-2 hover:bg-neutral-900 transition-colors">
-                {t('hero.viewWork')} <ArrowRight size={16} />
+                {t('hero.contactMe')} <ArrowRight size={16} />
               </span>
             </button>
 
             <button 
-              onClick={() => scrollToSection('contact')}
+              onClick={() => scrollToSection('projects')}
               className="px-6 py-3 border border-neutral-800 bg-neutral-900/50 text-neutral-300 font-medium rounded hover:bg-neutral-800 hover:text-white transition-all flex items-center justify-center h-12"
             >
-              {t('hero.contactMe')}
+              {t('hero.viewProjects')}
             </button>
           </div>
         </motion.div>
 
-        {/* Right Content - Why Hire Me */}
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -120,7 +120,6 @@ export const Hero: React.FC = () => {
             transition={{ type: "spring", stiffness: 300 }}
             className="p-8 border border-neutral-800/80 bg-neutral-900/30 backdrop-blur-md rounded-xl shadow-2xl relative overflow-hidden group"
           >
-            {/* Spotlight effect within card */}
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
             <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2 relative z-10">
@@ -144,7 +143,6 @@ export const Hero: React.FC = () => {
             </ul>
           </motion.div>
           
-          {/* Decorative element behind */}
           <div className="absolute -z-10 top-12 right-0 w-[calc(100%+2rem)] h-full border border-neutral-800/30 rounded-xl bg-neutral-900/10 blur-sm" />
         </motion.div>
       </div>

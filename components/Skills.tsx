@@ -10,27 +10,11 @@ export const Skills: React.FC = () => {
 
   const getTooltipKey = (skill: string): string => {
     const skillMap: Record<string, string> = {
-      'OpenAI API': 'skills.tooltip.openai',
-      'Google Gemini': 'skills.tooltip.gemini',
-      'Custom AI Agents': 'skills.tooltip.customAgents',
-      'RAG': 'skills.tooltip.rag',
-      'Prompt Engineering': 'skills.tooltip.promptEngineering',
-      'n8n': 'skills.tooltip.n8n',
-      'Webhooks': 'skills.tooltip.webhooks',
+      'Next.js': 'skills.tooltip.nextjs',
       'React': 'skills.tooltip.react',
-      'Next.js 14+': 'skills.tooltip.nextjs',
-      'TypeScript': 'skills.tooltip.typescript',
-      'Tailwind CSS': 'skills.tooltip.tailwind',
-      'Framer Motion': 'skills.tooltip.framerMotion',
-      'Figma': 'skills.tooltip.figma',
-      'Node.js': 'skills.tooltip.nodejs',
-      'PostgreSQL': 'skills.tooltip.postgresql',
-      'PayloadCMS': 'skills.tooltip.payload',
-      'Strapi': 'skills.tooltip.strapi',
-      'Stripe Integration': 'skills.tooltip.stripe',
-      'Serverless Functions': 'skills.tooltip.serverless',
-      'Vercel': 'skills.tooltip.vercel',
-      'Git & GitHub': 'skills.tooltip.git',
+      'Directus': 'skills.tooltip.directus',
+      'GitHub Pages': 'skills.tooltip.githubPages',
+      'Mikrus': 'skills.tooltip.mikrus',
     };
     return skillMap[skill] || '';
   };
@@ -51,23 +35,25 @@ export const Skills: React.FC = () => {
   };
 
   return (
-    // Changed bg-neutral-950/30 (transparent) to bg-[#080808] (solid) to block the grid background
-    <section className="py-24 border-y border-neutral-900 bg-[#080808] relative">
+    <section id="skills" className="py-16 border-t border-neutral-900/50 bg-[#060606] relative scroll-mt-20">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <motion.h2 
            initial={{ opacity: 0 }}
            whileInView={{ opacity: 1 }}
            viewport={{ once: true }}
-           className="text-3xl font-bold mb-12 text-white"
+           className="text-2xl font-semibold mb-3 text-neutral-300"
         >
           {t('skills.title')}
         </motion.h2>
+        <p className="text-neutral-500 text-sm mb-10 max-w-2xl">
+          {t('skills.subtitle')}
+        </p>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {skills.map((group, idx) => (
-            <div key={group.category} className="space-y-6">
-              <h3 className="text-xs uppercase tracking-[0.2em] text-emerald-500 font-bold mb-4 flex items-center gap-2">
-                <span className="w-8 h-px bg-emerald-900" />
+        <div className="grid md:grid-cols-3 gap-10">
+          {skills.map((group) => (
+            <div key={group.category} className="space-y-4">
+              <h3 className="text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium mb-3 flex items-center gap-2">
+                <span className="w-6 h-px bg-neutral-800" />
                 {group.category}
               </h3>
               
@@ -86,8 +72,8 @@ export const Skills: React.FC = () => {
                     <Tooltip key={skill} content={tooltipContent}>
                       <motion.span 
                         variants={item}
-                        whileHover={{ scale: 1.05, backgroundColor: "rgba(31, 41, 55, 1)", borderColor: "rgba(75, 85, 99, 1)" }}
-                        className="px-3 py-2 bg-neutral-900 border border-neutral-800 text-neutral-300 text-sm rounded transition-colors cursor-pointer select-none hover:text-white"
+                        whileHover={{ scale: 1.03, backgroundColor: "rgba(23, 23, 23, 1)", borderColor: "rgba(64, 64, 64, 1)" }}
+                        className="px-3 py-2 bg-neutral-900/50 border border-neutral-800/80 text-neutral-400 text-sm rounded transition-colors cursor-pointer select-none hover:text-neutral-200"
                       >
                         {skill}
                       </motion.span>
@@ -99,9 +85,11 @@ export const Skills: React.FC = () => {
           ))}
         </div>
       </div>
-      
-      {/* Decorative gradient for the solid section */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-neutral-900/20 to-transparent pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 mt-12 border-t border-neutral-900/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 text-sm">
+        <p>© {new Date().getFullYear()} Piotr Jaworski.</p>
+        <p>{t('contact.footer')}</p>
+      </div>
     </section>
   );
 };

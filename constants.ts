@@ -4,26 +4,22 @@ import { Language } from './context/LanguageContext';
 export const getNavLinks = (t: (key: string) => string) => [
   { name: t('nav.about'), href: '#about' },
   { name: t('nav.projects'), href: '#projects' },
-  { name: t('nav.experience'), href: '#experience' },
   { name: t('nav.contact'), href: '#contact' },
+  { name: t('nav.experience'), href: '#experience' },
 ];
 
 export const getSkills = (lang: Language): SkillGroup[] => [
   {
-    category: lang === 'pl' ? "AI Engineering & Automatyzacja" : "AI Engineering & Automation",
-    skills: ["OpenAI API", "Google Gemini", "Custom AI Agents", "RAG", "Prompt Engineering", "n8n", "Webhooks"]
+    category: lang === 'pl' ? 'Szybkość i widoczność' : 'Speed & Visibility',
+    skills: ['Next.js', 'React']
   },
   {
-    category: lang === 'pl' ? "Modern Frontend & UI/UX" : "Modern Frontend & UI/UX",
-    skills: ["React", "Next.js 14+", "TypeScript", "Tailwind CSS", "Framer Motion", "Figma"]
+    category: lang === 'pl' ? 'Łatwa edycja treści' : 'Easy Content Editing',
+    skills: ['Directus']
   },
   {
-    category: lang === 'pl' ? "Backend, CMS & Dane" : "Backend, CMS & Data",
-    skills: ["Node.js", "PostgreSQL", "PayloadCMS", "Strapi", "Stripe Integration", "Serverless Functions"]
-  },
-  {
-    category: lang === 'pl' ? "DevOps & Narzędzia" : "DevOps & Tools",
-    skills: ["Vercel", "Git & GitHub"]
+    category: lang === 'pl' ? 'Niski koszt utrzymania' : 'Low Maintenance Cost',
+    skills: ['GitHub Pages', 'Mikrus']
   }
 ];
 
@@ -33,84 +29,77 @@ export const getProjects = (lang: Language): Project[] => {
     {
       id: 'deeplomai',
       title: 'Deeplomai',
-      category: 'SaaS',
-      description: isPl 
-        ? 'Platforma AI wspierająca pisanie prac dyplomowych. Gotowy produkt SaaS z regularnymi przychodami i bazą użytkowników.'
-        : 'AI-Powered academic writing assistance platform targeting Polish universities. Production-ready SaaS with recurring revenue.',
-      features: isPl 
-        ? ['Generowanie struktury prac z Gemini', 'Sugestie AI w czasie rzeczywistym', 'Automatyczne cytowania (APA/MLA)', 'Płatności subskrypcyjne Stripe']
-        : ['Gemini content generation for thesis structure', 'Real-time AI suggestions & style verification', 'Automated citations (APA/MLA) & DOI lookup', 'Stripe subscription monetization'],
-      techStack: ['Next.js', 'TypeScript', 'Google Gemini', 'Stripe', 'Vercel'],
+      category: isPl ? 'Platforma online' : 'Online Platform',
+      description: isPl
+        ? 'Działająca platforma z płatnościami online i rosnącą bazą użytkowników. Realny biznes oparty na subskrypcjach.'
+        : 'A live platform with online payments and a growing user base. A real subscription-based business.',
+      features: isPl
+        ? ['Stałe przychody z subskrypcji', 'Profesjonalny, zaufany wygląd', 'Szybkie i wygodne korzystanie', 'Gotowe do obsługi wielu użytkowników']
+        : ['Recurring subscription revenue', 'Professional, trustworthy look', 'Fast and convenient to use', 'Built to handle many users'],
       status: 'Live',
-      isMonetized: true,
       link: 'https://deeplomai.com/'
     },
     {
       id: 'wygoda-ski',
       title: 'Wygoda.ski',
-      category: 'E-commerce',
+      category: isPl ? 'Rezerwacje online' : 'Online Booking',
       description: isPl
-        ? 'Frontend platformy rezerwacyjnej wyjazdów narciarskich zintegrowany ze Strapi CMS.'
-        : 'Frontend for ski trip booking platform integrated with Strapi CMS.',
+        ? 'Strona rezerwacji wyjazdów narciarskich. Klienci przeglądają oferty i składają zapytania bez dzwonienia.'
+        : 'Ski trip booking website. Customers browse offers and send inquiries without picking up the phone.',
       features: isPl
-        ? ['Frontend w Next.js', 'Integracja ze Strapi CMS', 'Responsywny design', 'Optymalizacja wydajności']
-        : ['Next.js frontend', 'Strapi CMS integration', 'Responsive design', 'Performance optimization'],
-      techStack: ['Next.js', 'Strapi', 'Performance Optimization'],
+        ? ['Przejrzysta oferta dostępna 24/7', 'Wygodna na telefonie i komputerze', 'Szybkie ładowanie strony', 'Łatwa aktualizacja treści przez właściciela']
+        : ['Clear offers available 24/7', 'Works great on phone and desktop', 'Fast page loading', 'Easy content updates for the owner'],
       status: 'Live',
       link: 'https://wygoda.ski'
     },
     {
       id: 'gta5-hair',
       title: 'GTA5 Hairstyles DB',
-      category: 'Reference DB',
+      category: isPl ? 'Wyszukiwarka online' : 'Online Search',
       description: isPl
-        ? 'Interaktywny katalog dla społeczności graczy ze zoptymalizowanym wyszukiwaniem.'
-        : 'Interactive catalog for the gaming community with optimized search and filtering.',
+        ? 'Popularna strona z bazą fryzur dla tysięcy użytkowników. Szybkie wyszukiwanie bez zbędnego czekania.'
+        : 'Popular hairstyle database used by thousands. Fast search without unnecessary waiting.',
       features: isPl
-        ? ['400+ fryzur w bazie', 'Wyszukiwanie z MeiliSearch', 'Filtrowanie i sortowanie', 'Optymalizacja statyczna']
-        : ['400+ searchable hairstyle entries', 'MeiliSearch integration', 'Filterable search & sorting', 'Static content delivery optimization'],
-      techStack: ['Next.js', 'MeiliSearch', 'Responsive Design'],
+        ? ['400+ pozycji w przejrzystej bazie', 'Błyskawiczne wyszukiwanie', 'Działa na każdym urządzeniu', 'Stabilna i szybka strona']
+        : ['400+ items in a clear database', 'Instant search', 'Works on any device', 'Stable and fast website'],
       status: 'Live',
       link: 'https://hairstyles-gta5.com'
     },
     {
       id: 'anubis',
       title: 'Anubis Travel',
-      category: 'Booking Platform',
+      category: isPl ? 'Biuro podróży' : 'Travel Agency',
       description: isPl
-        ? 'Frontend strony biura podróży z dynamicznym wyświetlaniem ofert.'
-        : 'Frontend for travel agency website with dynamic tour package displays.',
+        ? 'Strona biura podróży z aktualną ofertą wycieczek. Klienci od razu widzą dostępne wyjazdy i mogą się skontaktować.'
+        : 'Travel agency website with up-to-date tour offers. Customers immediately see available trips and can get in touch.',
       features: isPl
-        ? ['Frontend w Next.js', 'Integracja z API', 'Nowoczesne UX', 'Responsywny design']
-        : ['Next.js frontend', 'API integration', 'Modern UX patterns', 'Responsive design'],
-      techStack: ['Next.js', 'Strapi', 'Responsive Design'],
+        ? ['Czytelna prezentacja ofert', 'Wygodna na telefonie', 'Szybkie ładowanie', 'Łatwa aktualizacja wycieczek']
+        : ['Clear offer presentation', 'Mobile-friendly', 'Fast loading', 'Easy trip updates'],
       status: 'Live',
       link: 'https://anubistravel.com/'
     },
     {
       id: 'helen-doron',
       title: 'Helen Doron',
-      category: 'Marketing',
+      category: isPl ? 'Marketing lokalny' : 'Local Marketing',
       description: isPl
-        ? 'Strategia social media i tworzenie treści wizualnych dla oddziałów Grodzisk Mazowiecki i Pruszków.'
-        : 'Social media strategy and visual content creation for Grodzisk Mazowiecki & Pruszkow branches.',
+        ? 'Materiały promocyjne i obecność w social media dla lokalnych oddziałów szkoły językowej.'
+        : 'Promotional materials and social media presence for local language school branches.',
       features: isPl
-        ? ['Spójny branding wizualny', 'Strategia social media', 'Materiały promocyjne']
-        : ['Cohesive visual branding', 'Social media strategy', 'Promotional material design'],
-      techStack: ['Adobe Suite', 'Graphic Design'],
+        ? ['Spójny wizerunek marki', 'Materiały na social media', 'Profesjonalny wygląd materiałów']
+        : ['Consistent brand image', 'Social media materials', 'Professional visual quality'],
       status: 'Active'
     },
     {
       id: 'ark-tested',
       title: 'ARK Tested',
-      category: 'Reference DB',
+      category: isPl ? 'Projekt na zlecenie' : 'Client Project',
       description: isPl
-        ? 'Baza wiedzy o mechanikach gier survivalowych z kalkulatorami surowcowymi. Projekt na zlecenie - statyczna generacja z plików Markdown bez CMS.'
-        : 'Knowledge base for survival game mechanics with resource calculators. Client project - static generation from Markdown files without CMS.',
+        ? 'Strona na zlecenie z kalkulatorami i poradnikami. Kompleksowa baza wiedzy w jednym miejscu dla użytkowników.'
+        : 'Client website with calculators and guides. A comprehensive knowledge base in one place for users.',
       features: isPl
-        ? ['Kalkulatory surowcowe', 'Statyczna generacja z MD', 'Złożona architektura informacji', 'Projekt na zlecenie']
-        : ['Resource calculators', 'Static generation from MD', 'Complex information architecture', 'Client project'],
-      techStack: ['Gatsby', 'React', 'Markdown', 'Static Generation'],
+        ? ['Zrealizowane na zlecenie klienta', 'Praktyczne narzędzia dla użytkowników', 'Przejrzysta struktura treści', 'Szybki dostęp do informacji']
+        : ['Delivered for a client', 'Practical tools for users', 'Clear content structure', 'Quick access to information'],
       status: 'Live',
       link: 'https://arktested.com'
     }
@@ -127,13 +116,13 @@ export const getExperience = (lang: Language): Experience[] => {
       period: isPl ? '2022 - Obecnie' : '2022 - Present',
       description: isPl
         ? [
-            'Rozwój dynamicznych aplikacji webowych w Next.js, w tym wygoda.ski, Anubis Travel oraz OnHolidays.',
-            'Implementacja integracji z systemami CMS: PayloadCMS oraz Strapi.',
+            'Rozwój szybkich stron i aplikacji webowych dla firm usługowych i branży turystycznej.',
+            'Integracja systemów do łatwej edycji treści przez klientów (Directus, PayloadCMS).',
             'Optymalizacja wydajności i doświadczenia użytkownika dla platform rezerwacyjnych i e-commerce.'
           ]
         : [
-            'Developing dynamic web applications in Next.js, including wygoda.ski, Anubis Travel, and OnHolidays.',
-            'Implementing CMS integrations with PayloadCMS and Strapi.',
+            'Developing fast websites and web applications for service businesses and the travel industry.',
+            'Integrating content management systems that clients can easily update themselves (Directus, PayloadCMS).',
             'Optimizing performance and user experience for booking platforms and e-commerce solutions.'
           ]
     },
@@ -172,20 +161,20 @@ export const getExperience = (lang: Language): Experience[] => {
           ]
     },
     {
-      id: 'freelance',
-      role: isPl ? 'Freelance Web Developer' : 'Freelance Web Developer',
-      company: isPl ? 'Freelance' : 'Freelance',
+      id: 'firos',
+      role: isPl ? 'Founder & Lead Developer' : 'Founder & Lead Developer',
+      company: 'FIROS',
       period: isPl ? '2018 - Obecnie' : '2018 - Present',
       description: isPl
         ? [
-            'Realizacja różnorodnych projektów internetowych, w tym platform e-commerce oraz portfolio.',
-            'Dostarczanie nowoczesnych, funkcjonalnych i responsywnych rozwiązań dostosowanych do indywidualnych potrzeb klientów.',
-            'Kompleksowa obsługa projektów od koncepcji do wdrożenia.'
+            'Tworzenie stron internetowych dla lokalnych firm usługowych.',
+            'Skupienie na wynikach biznesowych: więcej klientów, lepsza widoczność w Google.',
+            'Kompleksowa obsługa od projektu po wdrożenie i wsparcie.'
           ]
         : [
-            'Delivering diverse web projects, including e-commerce platforms and portfolios.',
-            'Providing modern, functional, and responsive solutions tailored to individual client needs.',
-            'End-to-end project management from concept to deployment.'
+            'Building websites for local service businesses.',
+            'Focus on business results: more customers, better Google visibility.',
+            'Full service from design to deployment and ongoing support.'
           ]
     }
   ];
@@ -195,15 +184,15 @@ export const getWhyHire = (lang: Language) => {
   const isPl = lang === 'pl';
   return isPl
     ? [
-        "Strapi zamiast WordPress - szybsze, bezpieczniejsze i łatwiejsze w zarządzaniu",
-        "Nowoczesne strony dostosowane do Twoich potrzeb biznesowych",
-        "Kompleksowa obsługa - od projektu do wdrożenia i wsparcia",
-        "Dostępny przez Useme - bezpieczna współpraca na zlecenie"
+        'Tworzę strony dla małych i średnich firm. Skupiam się na wynikach, które przynoszą Ci więcej klientów.',
+        'Więcej telefonów i zapytań dzięki lepszej widoczności w Google.',
+        'Taniej niż ciężki WordPress. Nowoczesne narzędzia, bez ukrytych kosztów i płatnych wtyczek.',
+        'Strona wizytówka: tani hosting + domena. Sklep lub CMS: serwer od 395 zł/rok. Transparentne koszty.'
       ]
     : [
-        "Strapi instead of WordPress - faster, more secure, easier to manage",
-        "Modern websites tailored to your business needs",
-        "Full service - from design to deployment and support",
-        "Available through Useme - secure freelance collaboration"
+        'I build websites for small and medium businesses. I focus on results that bring you more customers.',
+        'More calls and inquiries through better Google visibility.',
+        'Cheaper than heavy WordPress. Modern tools, no hidden costs or paid plugins.',
+        'Business card site: affordable hosting + domain. Shop or CMS: server from 395 PLN/year. Transparent costs.'
       ];
 };

@@ -4,8 +4,8 @@ import { LanguageProvider } from './context/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { Background } from './components/Background';
 import { Hero } from './components/Hero';
-import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
+// import { Skills } from './components/Skills';
 import { Experience } from './components/Experience';
 import { Contact } from './components/Contact';
 import { NotFound } from './components/NotFound';
@@ -36,10 +36,10 @@ const PortfolioContent: React.FC = () => {
       <div className="relative z-10">
         <main className="flex flex-col">
           <Hero />
-          <Skills />
           <Projects />
-          <Experience />
           <Contact />
+          <Experience />
+          {/* <Skills /> */}
         </main>
       </div>
     </div>
@@ -68,7 +68,7 @@ const LanguageRedirect: React.FC = () => {
     if (!location.search.includes('lang=')) {
       const params = new URLSearchParams();
       params.set('lang', currentLang);
-      navigate(`/?${params.toString()}`, { replace: true });
+      navigate(`/?${params.toString()}${location.hash}`, { replace: true });
     }
   }, [navigate, location]);
   

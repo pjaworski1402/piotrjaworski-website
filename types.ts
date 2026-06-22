@@ -1,12 +1,10 @@
 export interface Project {
   id: string;
   title: string;
-  category: 'SaaS' | 'E-commerce' | 'Booking Platform' | 'Reference DB' | 'Marketing';
+  category: string;
   description: string;
   features: string[];
-  techStack: string[];
-  status: 'Live' | 'Production-ready' | 'Active';
-  isMonetized?: boolean;
+  status: 'Live' | 'Active';
   link?: string;
 }
 
