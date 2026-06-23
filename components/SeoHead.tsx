@@ -63,7 +63,6 @@ export const SeoHead: React.FC = () => {
       email: SITE_CONFIG.email,
       telephone: SITE_CONFIG.phone,
       areaServed: [
-        { '@type': 'AdministrativeArea', name: SITE_CONFIG.region },
         { '@type': 'Country', name: 'Poland' },
       ],
       description: meta.description,

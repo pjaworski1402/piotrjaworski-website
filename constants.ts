@@ -10,7 +10,6 @@ import {
 import { Language } from './context/LanguageContext';
 
 export const SITE_CONFIG = {
-  region: 'Warszawa',
   phone: '+48 608 423 576',
   phoneHref: 'tel:+48608423576',
   email: 'hello@piotrjaworski.com',

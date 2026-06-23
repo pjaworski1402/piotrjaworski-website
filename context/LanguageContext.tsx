@@ -1,17 +1,16 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { SITE_CONFIG } from '../constants';
 
 export type Language = 'en' | 'pl';
 
 export const seoMeta = {
   pl: {
     title: 'Piotr Jaworski | Strony internetowe dla firm lokalnych',
-    description: `Ultraszybkie strony internetowe dla małych i średnich firm na ${SITE_CONFIG.region} i w całej Polsce. Więcej klientów z Google, taniej niż WordPress.`,
+    description: 'Ultraszybkie strony internetowe dla małych i średnich firm w całej Polsce. Więcej klientów z Google, taniej niż WordPress.',
   },
   en: {
     title: 'Piotr Jaworski | Websites for Local Businesses',
-    description: `Ultra-fast websites for small and medium businesses in ${SITE_CONFIG.region} and across Poland. More customers from Google, cheaper than WordPress.`,
+    description: 'Ultra-fast websites for small and medium businesses across Poland. More customers from Google, cheaper than WordPress.',
   },
 };
 
@@ -38,8 +37,8 @@ export const translations = {
     'hero.viewProjects': 'See my work',
     'hero.whyHire': 'Why work with me?',
     'hero.author': 'Piotr Jaworski, local web expert',
-    'hero.bio': `I build websites for local businesses in ${SITE_CONFIG.region} and work remotely with clients across Poland. 8+ years of experience, FIROS since 2018.`,
-    'hero.location': `Based in ${SITE_CONFIG.region}. Working remotely across Poland.`,
+    'hero.bio': 'I build websites for local businesses across Poland. 8+ years of experience.',
+    'hero.location': 'Working with businesses across Poland. Phone, email and remote collaboration.',
     'hero.benefit1': 'More calls from customers',
     'hero.benefit2': 'Better visibility on Google',
     'hero.benefit3': 'Cheaper than heavy WordPress',
@@ -57,10 +56,10 @@ export const translations = {
     'skills.subtitle': 'Modern technology working for your profits. I handle the tech side, you grow your business.',
     'experience.title': 'Professional Journey',
     'contact.title': 'Contact me and get customers online',
-    'contact.desc': `Reach out to a local expert in ${SITE_CONFIG.region} who also works remotely across Poland. Fill out the form. I'll respond quickly and together we'll figure out how to grow your profits.`,
+    'contact.desc': 'Reach out to an expert who helps businesses across Poland get more customers online. Fill out the form. I\'ll respond quickly and together we\'ll figure out how to grow your profits.',
     'contact.vat': 'I issue VAT invoices',
     'contact.audit': 'Already have a website? Send the link in your message and I\'ll send you a free speed audit!',
-    'contact.footer': `Based in ${SITE_CONFIG.region}. Working remotely across Poland.`,
+    'contact.footer': 'Poland. Working with businesses across the country.',
     'contact.subject.newSite': 'New website',
     'contact.subject.audit': 'Existing site audit',
     'contact.subject.other': 'Other',
@@ -98,8 +97,8 @@ export const translations = {
     'hero.viewProjects': 'Zobacz realizacje',
     'hero.whyHire': 'Dlaczego warto?',
     'hero.author': 'Piotr Jaworski, lokalny ekspert od stron',
-    'hero.bio': `Tworzę strony dla firm lokalnych na ${SITE_CONFIG.region} i współpracuję zdalnie z klientami z całej Polski. 8+ lat doświadczenia, FIROS od 2018.`,
-    'hero.location': `Działam na ${SITE_CONFIG.region}. Pracuję też zdalnie z całą Polską.`,
+    'hero.bio': 'Tworzę strony dla firm lokalnych na terenie całej Polski. 8+ lat doświadczenia',
+    'hero.location': 'Współpraca z firmami z całej Polski. Kontakt telefoniczny, mailowy i zdalnie.',
     'hero.benefit1': 'Więcej telefonów od klientów',
     'hero.benefit2': 'Lepsza widoczność w Google',
     'hero.benefit3': 'Taniej niż ciężki WordPress',
@@ -117,10 +116,10 @@ export const translations = {
     'skills.subtitle': 'Nowoczesne technologie, które pracują na Twoje zyski. Ja się nimi zajmuję, Ty rozwijasz firmę.',
     'experience.title': 'Doświadczenie',
     'contact.title': 'Skontaktuj się i zyskaj klientów online',
-    'contact.desc': `Skontaktuj się z lokalnym ekspertem z ${SITE_CONFIG.region}, który pracuje też zdalnie z całą Polską. Wypełnij formularz. Odezwę się szybko i wspólnie ustalimy, jak zwiększyć Twoje zyski.`,
+    'contact.desc': 'Skontaktuj się z ekspertem, który pomaga firmom z całej Polski zdobywać klientów online. Wypełnij formularz. Odezwę się szybko i wspólnie ustalimy, jak zwiększyć Twoje zyski.',
     'contact.vat': 'Wystawiam faktury VAT',
     'contact.audit': 'Masz już stronę? Prześlij link w wiadomości, a prześlę Ci darmowy audyt jej szybkości!',
-    'contact.footer': `${SITE_CONFIG.region}. Współpraca zdalna z całą Polską.`,
+    'contact.footer': 'Polska. Współpraca z firmami z całej Polski.',
     'contact.subject.newSite': 'Nowa strona internetowa',
     'contact.subject.audit': 'Audyt istniejącej strony',
     'contact.subject.other': 'Inne',
